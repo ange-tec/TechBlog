@@ -12,15 +12,16 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class ArticleController extends AbstractController
 {
-    #[Route('/article', name: 'app_article')]
+    #[Route('/articles', name: 'app_articles')]
     public function fetchAllArticles(ArticleRepository $articleRepository): Response
     {
+        $articles = $articleRepository->findAll() ;
         return $this->render('article/index.html.twig', [
-            'controller_name' => 'ArticleController'
+            'articles' => $articles
         ]);
     }
 
-    #[Route('/article/{id}', name: 'app_articles')]
+    #[Route('/article/{id}', name: 'app_article')]
     public function fetchArticleById(EntityManagerInterface $entityManager, int $id): Response
     {
         $article = $entityManager->getRepository(Article::class)->find($id);
@@ -31,7 +32,13 @@ final class ArticleController extends AbstractController
             );
         }
 
-        return new Response($article->getTitle() . $article->getContent(). $article->getImage());
+        return
+            new Response(
+                $article->getTitle()
+                .$article->getUser() .$article->getDate()
+                .$article->getImage() .$article->getContent()
+                .$article->getCategory() .$article->getView()
+            );
     }
 
 

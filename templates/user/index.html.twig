@@ -10,6 +10,8 @@
 
 <div class="example-wrapper">
     <h1>Hello {{ app.user.name }}! ✅</h1>
+
     <a href="{{ path('app_logout') }}"> Se déconnecter </a>
+    <a href="{{ path('app_articles') }}"> Consulter les articles </a>
 </div>
 {% endblock %}

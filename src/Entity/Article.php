@@ -31,9 +31,6 @@ class Article
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTime $date = null;
 
-    #[ORM\Column]
-    private ?int $nbr_view = null;
-
     /**
      * @var Collection<int, Comment>
      */
@@ -42,6 +39,12 @@ class Article
 
     #[ORM\ManyToOne(inversedBy: 'articles')]
     private ?Category $category = null;
+
+    #[ORM\ManyToOne(inversedBy: 'articles')]
+    private ?User $user = null;
+
+    #[ORM\Column]
+    private ?int $view = null;
 
     public function __construct()
     {
@@ -113,18 +116,6 @@ class Article
         return $this;
     }
 
-    public function getNbrView(): ?int
-    {
-        return $this->nbr_view;
-    }
-
-    public function setNbrView(int $nbr_view): static
-    {
-        $this->nbr_view = $nbr_view;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Comment>
      */
@@ -163,6 +154,30 @@ class Article
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getView(): ?int
+    {
+        return $this->view;
+    }
+
+    public function setView(int $view): static
+    {
+        $this->view = $view;
 
         return $this;
     }

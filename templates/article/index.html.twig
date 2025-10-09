@@ -9,6 +9,20 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Bienvenue {{ controller_name }}! ✅</h1>
+    <h1>Bienvenue ✅</h1>
+    {% for article in articles %}
+        {% if (is_granted('ROLE_USER') == true ) %}
+            <li> Titre : {{ article.title }}</li>
+            <li> Auteur : {{ article.user }}</li>
+            <li> Resumé : {{ article.summary }}</li>
+            <li> Contenu : {{ article.content }}</li>
+            <li> Image : {{ article.image }}</li>
+            <li> Date :  {{ article.date|date('d/M/Y') }}</li>
+            <li> Nombre de view: {{ article.view }}</li>
+        {% endif %}
+        {% else %}
+        <h3> Vous devez créer un compte et vous connecter </h3>
+        <a href="{{ path('app_register') }}"> Créer un compte </a>
+    {% endfor %}
 </div>
 {% endblock %}
