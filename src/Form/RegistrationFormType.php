@@ -48,7 +48,6 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('biography', TextareaType::class)
-            ->add('inscription_date', DateType::class)
         ;
     }
 
