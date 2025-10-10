@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+{% block title %}Article Form{% endblock %}
+
+{% block body %}
+    <div class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg mt-8">
+
+        <h1 class="text-3xl font-bold mb-6 text-gray-800">Article</h1>
+
+        {% if articleForm is defined %}
+            <div class="mb-4">
+                {{ form_errors(articleForm) }}
+            </div>
+
+            {{ form_start(articleForm, {'attr': {'class': 'space-y-4'}}) }}
+
+            <div>
+                {{ form_label(articleForm.title, null, {'label_attr': {'class': 'block text-gray-700 font-medium mb-1'}}) }}
+                {{ form_widget(articleForm.title, {'attr': {'class': 'w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400'}}) }}
+                {{ form_errors(articleForm.title) }}
+            </div>
+
+            <div>
+                {{ form_label(articleForm.summary, null, {'label_attr': {'class': 'block text-gray-700 font-medium mb-1'}}) }}
+                {{ form_widget(articleForm.summary, {'attr': {'class': 'w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400'}}) }}
+                {{ form_errors(articleForm.summary) }}
+            </div>
+
+            <div>
+                {{ form_label(articleForm.content, null, {'label_attr': {'class': 'block text-gray-700 font-medium mb-1'}}) }}
+                {{ form_widget(articleForm.content, {'attr': {'class': 'w-full border border-gray-300 rounded px-3 py-2 h-40 focus:outline-none focus:ring-2 focus:ring-blue-400'}}) }}
+                {{ form_errors(articleForm.content) }}
+            </div>
+
+            <div>
+                {{ form_label(articleForm.category, null, {'label_attr': {'class': 'block text-gray-700 font-medium mb-1'}}) }}
+                {{ form_widget(articleForm.category, {'attr': {'class': 'w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400'}}) }}
+                {{ form_errors(articleForm.category) }}
+            </div>
+
+            <div>
+                {{ form_label(articleForm.image, null, {'label_attr': {'class': 'block text-gray-700 font-medium mb-1'}}) }}
+                {{ form_widget(articleForm.image, {'attr': {'class': 'w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400'}}) }}
+                {{ form_errors(articleForm.image) }}
+            </div>
+
+            <div class="flex items-center space-x-2">
+                {{ form_widget(articleForm.visible, {'attr': {'class': 'h-5 w-5 text-blue-500'}}) }}
+                {{ form_label(articleForm.visible, 'Visible', {'label_attr': {'class': 'text-gray-700 font-medium'}}) }}
+            </div>
+
+            <button type="submit" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 py-2 rounded shadow">
+                Enregistrer
+            </button>
+
+            {{ form_end(articleForm) }}
+
+        {% else %}
+            <div class="space-y-4">
+                <h3 class="text-2xl font-semibold text-gray-800">{{ article.title }}</h3>
+                <div class="p-4 bg-gray-50 rounded shadow">
+                    <p><span class="font-medium text-gray-700">Résumé :</span> {{ article.summary }}</p>
+                    <p><span class="font-medium text-gray-700">Contenu :</span> {{ article.content }}</p>
+                    <p><span class="font-medium text-gray-700">Catégorie :</span> {{ article.category }}</p>
+                    {% if article.image %}
+                        <p><span class="font-medium text-gray-700">Image :</span></p>
+                        <img src="{{ asset('uploads/' ~ article.image) }}" alt="Article image" class="mt-2 rounded shadow-md w-full max-w-md">
+                    {% endif %}
+                    <p><span class="font-medium text-gray-700">Visible :</span> {{ article.visible ? 'Oui' : 'Non' }}</p>
+                    <p><span class="font-medium text-gray-700">Date :</span> {{ article.date|date('d/M/Y') }}</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

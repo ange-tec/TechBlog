@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use http\Exception\InvalidArgumentException;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 class Article
@@ -44,7 +45,10 @@ class Article
     private ?User $user = null;
 
     #[ORM\Column]
-    private ?int $view = null;
+    private ?int $view = 0;
+
+    #[ORM\Column]
+    private ?bool $visible = null;
 
     public function __construct()
     {
@@ -179,6 +183,24 @@ class Article
     {
         $this->view = $view;
 
+        return $this;
+    }
+
+    public function isVisible(): ?bool
+    {
+        return $this->visible;
+    }
+
+    public function setVisible(bool $visible): static
+    {
+        $this->visible = $visible;
+
+        return $this;
+    }
+
+    public function incrementViews() : static
+    {
+        $this->view++;
         return $this;
     }
 }
